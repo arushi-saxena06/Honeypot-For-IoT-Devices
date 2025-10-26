@@ -3,71 +3,81 @@ package com.iot.honeypot.entity;
 import java.sql.Timestamp;
 
 public class AttackLog {
-    private int id;
-    private String type;
-    private String source;
-    private String target;
+    private long id;
     private Timestamp timestamp;
+    private String protocol;
+    private String sourceIp;
+    private String payload;
+    private int port;
 
-    // Constructor matching the usage in AttackService
-    public AttackLog(int id, String type, String source, String target, Timestamp timestamp) {
+    public AttackLog(long id, Timestamp timestamp, String protocol, String sourceIp, String payload, int port) {
         this.id = id;
-        this.type = type;
-        this.source = source;
-        this.target = target;
         this.timestamp = timestamp;
+        this.protocol = protocol;
+        this.sourceIp = sourceIp;
+        this.payload = payload;
+        this.port = port;
     }
 
     // Getters
-    public int getId() {
+    public long getId() {
         return id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public String getTarget() {
-        return target;
     }
 
     public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    // Optional: Setters, if needed
-    public void setId(int id) {
+    public String getProtocol() {
+        return protocol;
+    }
+
+    public String getSourceIp() {
+        return sourceIp;
+    }
+
+    public String getPayload() {
+        return payload;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    // Setters
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public void setTarget(String target) {
-        this.target = target;
     }
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
+    }
+
+    public void setSourceIp(String sourceIp) {
+        this.sourceIp = sourceIp;
+    }
+
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     @Override
     public String toString() {
         return "AttackLog{" +
                 "id=" + id +
-                ", type='" + type + '\'' +
-                ", source='" + source + '\'' +
-                ", target='" + target + '\'' +
                 ", timestamp=" + timestamp +
+                ", protocol='" + protocol + '\'' +
+                ", sourceIp='" + sourceIp + '\'' +
+                ", payload='" + payload + '\'' +
+                ", port=" + port +
                 '}';
     }
 }

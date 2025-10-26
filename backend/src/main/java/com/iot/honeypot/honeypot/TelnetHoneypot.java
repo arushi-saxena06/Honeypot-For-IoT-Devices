@@ -4,6 +4,7 @@ import com.iot.honeypot.service.AttackService;
 
 import java.io.*;
 import java.net.*;
+import java.sql.SQLException;
 
 public class TelnetHoneypot {
 
@@ -38,7 +39,7 @@ public class TelnetHoneypot {
                 System.out.println("Telnet Input: " + line);
 
                 // Record attack
-                attackService.recordAttack("Telnet", client.getInetAddress().getHostAddress(), line);
+                attackService.recordAttack("Telnet", client.getInetAddress().getHostAddress(), line, port);
 
                 // Echo back
                 out.write("You said: " + line + "\r\n");
@@ -46,7 +47,9 @@ public class TelnetHoneypot {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error handling Telnet client: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error recording Telnet attack: " + e.getMessage());
         } finally {
             try {
                 client.close();
