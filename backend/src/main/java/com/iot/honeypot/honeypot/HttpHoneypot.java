@@ -4,6 +4,7 @@ import com.iot.honeypot.service.AttackService;
 
 import java.io.*;
 import java.net.*;
+import java.sql.SQLException;
 
 public class HttpHoneypot {
 
@@ -35,7 +36,7 @@ public class HttpHoneypot {
                 System.out.println("HTTP Request: " + line);
 
                 // Record attack
-                attackService.recordAttack("HTTP", client.getInetAddress().getHostAddress(), line);
+                attackService.recordAttack("HTTP", client.getInetAddress().getHostAddress(), line, port);
 
                 // Send dummy response
                 String response = "HTTP/1.1 200 OK\r\nContent-Length: 2\r\n\r\nOK";
@@ -44,7 +45,9 @@ public class HttpHoneypot {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error handling HTTP client: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Error recording HTTP attack: " + e.getMessage());
         } finally {
             try {
                 client.close();
